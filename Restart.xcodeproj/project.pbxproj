@@ -15,6 +15,7 @@
 		E28C8CC728860221004E2705 /* success.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E28C8CC528860221004E2705 /* success.m4a */; };
 		E28C8CCE28860DA9004E2705 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28C8CCD28860DA9004E2705 /* HomeView.swift */; };
 		E28C8CD028860DB6004E2705 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28C8CCF28860DB6004E2705 /* OnboardingView.swift */; };
+		E28C8CD2288C25B6004E2705 /* CircleElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28C8CD1288C25B6004E2705 /* CircleElementView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		E28C8CCC288604D9004E2705 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E28C8CCD28860DA9004E2705 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E28C8CCF28860DB6004E2705 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		E28C8CD1288C25B6004E2705 /* CircleElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleElementView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 		E28C8CCB288602CA004E2705 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E28C8CD1288C25B6004E2705 /* CircleElementView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E28C8CCE28860DA9004E2705 /* HomeView.swift in Sources */,
+				E28C8CD2288C25B6004E2705 /* CircleElementView.swift in Sources */,
 				E28C8CD028860DB6004E2705 /* OnboardingView.swift in Sources */,
 				E206CDDC2885FFF300C4A8ED /* ContentView.swift in Sources */,
 				E206CDDA2885FFF300C4A8ED /* RestartApp.swift in Sources */,

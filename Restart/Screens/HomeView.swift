@@ -12,13 +12,42 @@ struct HomeView: View {
     @AppStorage("onboarding") var isOnboardingActive:Bool = false
     var body: some View {
         VStack(spacing: 20){
-            Text("Home View")
-                .font(.headline)
+            //Mark: - Header
+            Spacer()
+            
+            ZStack {
+                CircleElementView(ShapeColor: .gray, ShapeOpacity: 0.1)
+                Image("character-2")
+                    .resizable()
+                    .scaledToFit()
+                .padding()
+            }
+            
+            //Mark: - Center
+            Text("The time that leads to mastery depends on the intensity of our focus")
+                .font(.title3)
+                .fontWeight(.light)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.secondary)
+                .padding()
+            
+            //Mark: - Footer
+            Spacer()
+            
             Button(action: {
                 isOnboardingActive = true
             }) {
-                Text("Go to Onboarding")
+                Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
+                    .imageScale(.large)
+                    
+                Text("Restart")
+                    .font(.system(.title3, design: .rounded))
+                    .fontWeight(.bold)
+                
             }
+            .buttonStyle(.borderedProminent)
+            .buttonBorderShape(.capsule)
+            .controlSize(.large)
 
         }
     }
