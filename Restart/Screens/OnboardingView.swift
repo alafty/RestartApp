@@ -12,6 +12,10 @@ struct OnboardingView: View {
     @AppStorage("onboarding") var isOnboardingActive:Bool = true
     @State private var buttonWidth: Double = UIScreen.main.bounds.width - 80
     @State private var buttonOffset: CGFloat = 0
+    @State private var isAnimating: Bool = false
+    @State private var imageOffset: CGSize = .zero
+    @State private var opacityModifier: Double = 1.0
+    @State private var mainText:String = "Share"
     
     var body: some View {
         ZStack {
@@ -20,11 +24,14 @@ struct OnboardingView: View {
             VStack{
                 //MARK: Header
                 VStack{
-                    Text("Share")
+                    Text(mainText)
                         .font(.system(size: 55))
                         .fontWeight(.heavy)
                         .foregroundColor(.white)
                         .padding(.top)
+                        .transition(.opacity)
+                        .id(mainText)
+                    
                     Text("""
                         It's not how much you give
                         but how much love you put in giving
@@ -35,13 +42,56 @@ struct OnboardingView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
                 }
+                .opacity(isAnimating ? 1 : 0)
+                .offset(y: isAnimating ? 0 : -40)
+                .animation(.easeOut(duration: 1), value: isAnimating)
                 //MARK: CENTER
                 ZStack{
                     CircleElementView(ShapeColor: .white, ShapeOpacity: 0.2)
+                        .offset(x: imageOffset.width * -1)
+                        .blur(radius: abs(imageOffset.width / 5))
+                        .animation(.easeOut(duration: 1), value: imageOffset)
                     Image("character-1")
                         .resizable()
                         .scaledToFit()
+                        .scaleEffect(isAnimating ? 0.9 : 0.6)
+                        .offset(y: isAnimating ? 0 : 80)
+                        .animation(.easeOut(duration: 1), value: isAnimating)
+                        .offset(x: imageOffset.width * 1.5, y: 0)
+                        .rotationEffect(.degrees(Double(imageOffset.width / 10)))
+                        .gesture(
+                            DragGesture()
+                                .onChanged({ gesture in
+                                    if abs(imageOffset.width) <= 150 {
+                                        imageOffset = gesture.translation
+                                        withAnimation(.linear(duration: 0.25)) {
+                                            opacityModifier = 0
+                                            mainText = "Give"
+                                        }
+                                        
+                                    }
+                                })
+                                .onEnded({ _ in
+                                    withAnimation(.easeOut(duration: 0.4)){
+                                        imageOffset = .zero
+                                    }
+                                    withAnimation(.linear(duration: 0.25)) {
+                                        opacityModifier = 1
+                                        mainText = "Share"
+                                    }
+                                })
+                        )
                 }
+                .overlay(
+                    Image(systemName: "arrow.left.and.right.circle")
+                        .font(.system(size: 30, weight: .light))
+                        .foregroundColor(.white)
+                        .opacity(isAnimating ? 0.5 : 0)
+                        .offset(y: -20)
+                        .opacity(opacityModifier)
+                        .animation(.easeOut(duration: 1).delay(2), value: isAnimating)
+                    , alignment: .bottom
+                )
                 //MARK: FOOTER
                 ZStack {
                     Text("Get Started")
@@ -81,11 +131,13 @@ struct OnboardingView: View {
                                     }
                                 }
                                 .onEnded{ _ in
-                                    if buttonOffset < buttonWidth / 2{
-                                        buttonOffset = 0
-                                    } else {
-                                        buttonOffset = buttonWidth - 80
-                                        isOnboardingActive = false
+                                    withAnimation(.easeOut(duration: 0.4)){
+                                        if buttonOffset < buttonWidth / 2{
+                                            buttonOffset = 0
+                                        } else {
+                                            buttonOffset = buttonWidth - 80
+                                            isOnboardingActive = false
+                                        }
                                     }
                                 }
                         )
@@ -98,10 +150,15 @@ struct OnboardingView: View {
                 }//: Background ZStack
                 .frame(width: buttonWidth, height: 80, alignment: .center)
                 .padding()
-                
+                .opacity(isAnimating ? 1 : 0)
+                .offset(y: isAnimating ? 0 : 40)
+                .animation(.easeOut(duration: 1), value: isAnimating)
                 
             }
         }//: Main VStack
+        .onAppear(perform: {
+            isAnimating = true
+        })
     }
 }
 
