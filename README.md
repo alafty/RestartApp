@@ -1,6 +1,6 @@
 # RestartApp
 
-Restart app is a demo app that consists of two views created for the sake of experimentation with the Swift language.
+Restart app is a demo app that consists of two views created for the sake of experimentation with SwiftUI .
 
 *Main Features*
 
